@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Honey Production Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <span class="bee-icon">🐝</span>
+      <div>
+        <h1>Honey Dashboard</h1>
+        <p class="subtitle">Production &amp; ventes par semestre — Burkina Faso</p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- KPI Cards -->
+    <section class="kpi-row" id="kpi-row"></section>
+
+    <!-- Charts -->
+    <section class="charts-grid">
+      <div class="card">
+        <h2>Production par semestre (L)</h2>
+        <div class="chart-wrap"><canvas id="productionChart"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <h2>Ventes (FCFA)</h2>
+          <div class="toggle-group">
+            <button class="toggle-btn active" data-view="semester">Semestre</button>
+            <button class="toggle-btn" data-view="month">Mois</button>
+          </div>
+        </div>
+        <div class="chart-wrap"><canvas id="salesChart"></canvas></div>
+      </div>
+    </section>
+
+    <!-- Price per kg table -->
+    <section class="card table-card">
+      <h2>Récapitulatif par semestre</h2>
+      <table id="priceTable">
+        <thead>
+          <tr>
+            <th>Année</th>
+            <th>Semestre</th>
+            <th>Production (L)</th>
+            <th>Nb bouteilles</th>
+            <th>Ventes (FCFA)</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <!-- Add data form -->
+    <section class="card form-card">
+      <h2>Ajouter une récolte</h2>
+      <div class="form-grid">
+        <label>Année
+          <input type="number" id="f-year" placeholder="2024" min="2000" max="2099" />
+        </label>
+        <label>Mois de récolte
+          <select id="f-month">
+            <option value="1">Janvier</option>
+            <option value="2">Février</option>
+            <option value="3">Mars</option>
+            <option value="4">Avril</option>
+            <option value="5">Mai</option>
+            <option value="6">Juin</option>
+            <option value="7">Juillet</option>
+            <option value="8">Août</option>
+            <option value="9">Septembre</option>
+            <option value="10">Octobre</option>
+            <option value="11">Novembre</option>
+            <option value="12">Décembre</option>
+          </select>
+        </label>
+        <label>Production (L)
+          <input type="number" id="f-prod" placeholder="100" min="0" step="0.1" />
+        </label>
+      </div>
+      <button id="addBtn">Ajouter</button>
+    </section>
+
+    <!-- Commandes -->
+    <section class="card orders-card">
+      <h2>Commandes</h2>
+      <div class="form-grid">
+        <label>Date
+          <input type="date" id="o-date" />
+        </label>
+        <label>Client
+          <input type="text" id="o-client" placeholder="Nom du client" />
+        </label>
+        <label>Quantité (bouteilles)
+          <input type="number" id="o-qty" placeholder="10" min="1" />
+        </label>
+      </div>
+      <button id="addOrderBtn">Enregistrer la commande</button>
+
+      <table id="ordersTable" style="margin-top:24px">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Client</th>
+            <th>Qté (btl)</th>
+            <th>Valeur (FCFA)</th>
+            <th>Statut</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer>
+    <p>Honey Dashboard · Projet portfolio · Chart.js</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

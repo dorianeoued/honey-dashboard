@@ -1,0 +1,8 @@
+[
+  { "year": 2022, "season": "Printemps", "production": 120, "sales": 1800 },
+  { "year": 2022, "season": "Été",       "production": 200, "sales": 3200 },
+  { "year": 2022, "season": "Automne",   "production": 150, "sales": 2400 },
+  { "year": 2023, "season": "Printemps", "production": 140, "sales": 2100 },
+  { "year": 2023, "season": "Été",       "production": 220, "sales": 3500 },
+  { "year": 2023, "season": "Automne",   "production": 170, "sales": 2600 }
+]
