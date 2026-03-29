@@ -24,6 +24,7 @@ loadAll().catch(err => console.error('Erreur chargement :', err));
 function render() {
   populateYearFilter();
   renderKPIs();
+  renderStock();
   renderCharts();
   renderHarvestTable();
   renderOrdersTable();
@@ -90,6 +91,35 @@ function getDeliveredByMonth() {
     map[key].sales += o.value;
   });
   return Object.values(map).sort((a, b) => a.year - b.year || a.month - b.month);
+}
+
+// ── Stock ─────────────────────────────────────────────────────────────────────
+
+function renderStock() {
+  const total     = Math.floor(rawData.reduce((s, d) => s + d.production, 0) * 2);
+  const delivered = ordersData.filter(o => o.status === 'livré').reduce((s, o) => s + o.quantity, 0);
+  const reserved  = ordersData.filter(o => o.status === 'en_attente').reduce((s, o) => s + o.quantity, 0);
+  const available = Math.max(0, total - delivered - reserved);
+
+  const pDelivered = total > 0 ? (delivered / total * 100).toFixed(1) : 0;
+  const pReserved  = total > 0 ? (reserved  / total * 100).toFixed(1) : 0;
+  const pAvailable = total > 0 ? (available / total * 100).toFixed(1) : 0;
+
+  document.getElementById('stock-summary').innerHTML = `
+    <div class="stock-available">
+      <span class="stock-number">${available.toLocaleString('fr-FR')}</span>
+      <span class="stock-label">bouteilles disponibles sur ${total.toLocaleString('fr-FR')} produites</span>
+    </div>`;
+
+  document.getElementById('stock-bar').innerHTML = `
+    <div class="bar-segment bar-delivered" style="width:${pDelivered}%" title="Livrées : ${delivered}"></div>
+    <div class="bar-segment bar-reserved"  style="width:${pReserved}%"  title="Réservées : ${reserved}"></div>
+    <div class="bar-segment bar-available" style="width:${pAvailable}%" title="Disponibles : ${available}"></div>`;
+
+  document.getElementById('stock-legend').innerHTML = `
+    <div class="legend-item"><span class="dot dot-delivered"></span>Livrées — ${delivered.toLocaleString('fr-FR')} btl</div>
+    <div class="legend-item"><span class="dot dot-reserved"></span>Réservées — ${reserved.toLocaleString('fr-FR')} btl</div>
+    <div class="legend-item"><span class="dot dot-available"></span>Disponibles — ${available.toLocaleString('fr-FR')} btl</div>`;
 }
 
 // ── KPIs ─────────────────────────────────────────────────────────────────────

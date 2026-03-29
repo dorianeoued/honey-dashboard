@@ -308,6 +308,58 @@ footer {
   color: var(--muted);
 }
 
+/* ── Stock ─────────────────────────────────────────── */
+.stock-available {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.stock-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem;
+  color: var(--honey-dk);
+  line-height: 1;
+}
+.stock-label {
+  font-size: .9rem;
+  color: var(--muted);
+}
+.stock-bar-wrap {
+  height: 22px;
+  background: #ede8d8;
+  border-radius: 99px;
+  overflow: hidden;
+  display: flex;
+  margin-bottom: 14px;
+}
+.bar-segment { height: 100%; transition: width .4s ease; }
+.bar-delivered { background: #276138; }
+.bar-reserved  { background: #e8960a; }
+.bar-available { background: #a8d672; }
+
+.stock-legend {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  font-size: .82rem;
+  color: var(--muted);
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.dot-delivered { background: #276138; }
+.dot-reserved  { background: #e8960a; }
+.dot-available { background: #a8d672; }
+
 /* ── Commandes table scroll ────────────────────────── */
 .orders-card { overflow-x: auto; }
 
