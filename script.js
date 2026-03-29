@@ -7,9 +7,10 @@ function parseDate(dateStr) {
   return { year, month, semester: month <= 6 ? 1 : 2 };
 }
 
-let rawData    = [];
-let ordersData = [];
-let salesView  = 'semester';
+let rawData      = [];
+let ordersData   = [];
+let salesView    = 'semester';
+let selectedYear = 'all';
 let prodChart, salesChart;
 
 async function loadAll() {
@@ -21,6 +22,7 @@ async function loadAll() {
 loadAll().catch(err => console.error('Erreur chargement :', err));
 
 function render() {
+  populateYearFilter();
   renderKPIs();
   renderCharts();
   renderHarvestTable();
@@ -41,7 +43,21 @@ function getHarvestBySemester() {
 
 // ── Agrégation ventes (commandes livrées) ────────────────────────────────────
 
-function getDelivered() { return ordersData.filter(o => o.status === 'livré'); }
+function getDelivered() {
+  return ordersData.filter(o => {
+    if (o.status !== 'livré') return false;
+    if (selectedYear === 'all') return true;
+    return parseDate(o.date).year === parseInt(selectedYear);
+  });
+}
+
+function populateYearFilter() {
+  const years = [...new Set(ordersData.map(o => parseDate(o.date).year))].sort();
+  const select = document.getElementById('year-filter');
+  const current = select.value;
+  select.innerHTML = '<option value="all">Toutes les années</option>' +
+    years.map(y => `<option value="${y}" ${String(y) === current ? 'selected' : ''}>${y}</option>`).join('');
+}
 
 function getDeliveredBySemester() {
   const map = {};
@@ -169,6 +185,14 @@ function renderOrdersTable() {
     });
   });
 }
+
+// ── Filtre année ─────────────────────────────────────────────────────────────
+
+document.getElementById('year-filter').addEventListener('change', e => {
+  selectedYear = e.target.value;
+  renderKPIs();
+  renderCharts();
+});
 
 // ── Toggle ventes semestre/mois ──────────────────────────────────────────────
 

@@ -34,9 +34,14 @@
       <div class="card">
         <div class="card-header">
           <h2>Ventes (FCFA)</h2>
-          <div class="toggle-group">
-            <button class="toggle-btn active" data-view="semester">Semestre</button>
-            <button class="toggle-btn" data-view="month">Mois</button>
+          <div class="card-controls">
+            <select id="year-filter">
+              <option value="all">Toutes les années</option>
+            </select>
+            <div class="toggle-group">
+              <button class="toggle-btn active" data-view="semester">Semestre</button>
+              <button class="toggle-btn" data-view="month">Mois</button>
+            </div>
           </div>
         </div>
         <div class="chart-wrap"><canvas id="salesChart"></canvas></div>

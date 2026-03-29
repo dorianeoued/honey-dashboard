@@ -147,6 +147,23 @@ main {
   margin-bottom: 18px;
 }
 .card-header h2 { margin-bottom: 0; }
+.card-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.card-controls select {
+  padding: 5px 10px;
+  border: 2px solid var(--honey);
+  border-radius: 20px;
+  background: transparent;
+  color: var(--honey-dk);
+  font-family: 'DM Sans', sans-serif;
+  font-size: .8rem;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+}
 .toggle-group {
   display: flex;
   gap: 6px;
