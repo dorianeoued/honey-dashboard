@@ -60,25 +60,36 @@ function populateYearFilter() {
 }
 
 function getDeliveredBySemester() {
+  // Base : tous les semestres de récolte (même si ventes = 0)
   const map = {};
+  getHarvestBySemester().forEach(h => {
+    map[h.label] = { label: h.label, year: h.year, semester: h.semester, sales: 0 };
+  });
+  // Ajouter les ventes des commandes livrées
   getDelivered().forEach(o => {
     const { year, semester } = parseDate(o.date);
     const key = `${year} S${semester}`;
     if (!map[key]) map[key] = { label: key, year, semester, sales: 0 };
     map[key].sales += o.value;
   });
-  return Object.values(map);
+  return Object.values(map).sort((a, b) => a.year - b.year || a.semester - b.semester);
 }
 
 function getDeliveredByMonth() {
+  // Base : tous les mois de récolte (même si ventes = 0)
   const map = {};
+  rawData.forEach(d => {
+    const key = `${d.year}-${d.month}`;
+    if (!map[key]) map[key] = { label: `${MONTHS_FR[d.month - 1]} ${d.year}`, year: d.year, month: d.month, semester: d.semester, sales: 0 };
+  });
+  // Ajouter les ventes des commandes livrées
   getDelivered().forEach(o => {
     const { year, month, semester } = parseDate(o.date);
-    const key = `${MONTHS_FR[month - 1]} ${year}`;
-    if (!map[key]) map[key] = { label: key, year, semester, sales: 0 };
+    const key = `${year}-${month}`;
+    if (!map[key]) map[key] = { label: `${MONTHS_FR[month - 1]} ${year}`, year, month, semester, sales: 0 };
     map[key].sales += o.value;
   });
-  return Object.values(map);
+  return Object.values(map).sort((a, b) => a.year - b.year || a.month - b.month);
 }
 
 // ── KPIs ─────────────────────────────────────────────────────────────────────
