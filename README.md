@@ -245,6 +245,23 @@ Barres par semestre (S1/S2) — toujours affiché sur toutes les années.
 - Affiche tous les semestres ayant une récolte, même si les ventes sont à 0
 - Les ventes reflètent uniquement les commandes livrées
 
+### Gestion du stock
+Carte affichée entre les KPIs et les graphiques, calculée automatiquement :
+
+| Indicateur | Calcul |
+|---|---|
+| Bouteilles produites | `production totale (L) × 2` |
+| Bouteilles livrées | somme des commandes au statut `livré` |
+| Bouteilles réservées | somme des commandes au statut `en_attente` |
+| **Bouteilles disponibles** | `produites − livrées − réservées` |
+
+Une barre de progression colorée visualise la répartition du stock :
+- **Vert foncé** = livrées
+- **Orange** = réservées
+- **Vert clair** = disponibles
+
+Le stock se met à jour en temps réel dès qu'une commande est marquée livrée.
+
 ### Tableau des récoltes
 Récapitulatif par semestre : production (L), nombre de bouteilles potentielles, valeur (FCFA).
 
