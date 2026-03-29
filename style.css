@@ -308,8 +308,84 @@ footer {
   color: var(--muted);
 }
 
+/* ── Commandes table scroll ────────────────────────── */
+.orders-card { overflow-x: auto; }
+
+/* ── Bouton commande ───────────────────────────────── */
+button#addOrderBtn {
+  background: var(--honey);
+  color: var(--dark);
+  border: none;
+  padding: 12px 28px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: background .2s, transform .1s;
+}
+button#addOrderBtn:hover  { background: var(--honey-lt); }
+button#addOrderBtn:active { transform: scale(.97); }
+
 /* ── Animation ─────────────────────────────────────── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Responsive tablette (≤ 768px) ────────────────── */
+@media (max-width: 768px) {
+  header { padding: 20px 20px; }
+
+  main { padding: 20px 16px; gap: 20px; }
+
+  .kpi-row { grid-template-columns: 1fr 1fr; }
+
+  .kpi-value { font-size: 1.4rem; }
+
+  .card { padding: 20px 16px; }
+
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .card-controls {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .card-controls select { flex: 1; }
+}
+
+/* ── Responsive téléphone (≤ 480px) ───────────────── */
+@media (max-width: 480px) {
+  .bee-icon { font-size: 2rem; }
+
+  h1 { font-size: 1.5rem; }
+
+  .subtitle { font-size: .78rem; }
+
+  .kpi-row { grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .kpi-card { padding: 14px 14px; }
+
+  .kpi-value { font-size: 1.2rem; }
+
+  .kpi-label { font-size: .68rem; }
+
+  .chart-wrap { height: 200px; }
+
+  .form-grid { grid-template-columns: 1fr; }
+
+  button#addBtn,
+  button#addOrderBtn {
+    width: 100%;
+    text-align: center;
+  }
+
+  th, td { padding: 8px 10px; font-size: .8rem; }
+
+  .toggle-btn { padding: 5px 10px; font-size: .75rem; }
 }
